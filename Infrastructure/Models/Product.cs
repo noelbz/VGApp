@@ -27,9 +27,15 @@ public class Product
     // Jämför produkter efter deras namn och letar efter dubletter.
     public override bool Equals(object? obj)
     {
+        // Om obj är en Product, jämför deras namn.
         if (obj is Product p)
+            // Returnerar true om namnen är lika (ignorerar stora/små bokstäver och trimar mellanslag).
             return string.Equals(this.Name?.Trim(), p.Name?.Trim(), StringComparison.OrdinalIgnoreCase);
+        // Om obj inte är en Product, returnera false.
         return false;
     }
-    public override int GetHashCode() => this.Name?.Trim().ToLowerInvariant().GetHashCode() ?? base.GetHashCode();
+    // Skapar en hashkod baserat på produktens namn så att lika produkter får samma hashkod.
+    // Om namnet är null används basklassens GetHashCode.
+    public override int GetHashCode() => 
+        this.Name?.Trim().ToLowerInvariant().GetHashCode() ?? base.GetHashCode();
 }
